@@ -1,0 +1,52 @@
+# Dependencies
+client/node_modules
+server/venv
+**/__pycache__
+*.pyc
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# Build
+client/build
+client/dist
+server/build
+server/dist
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+client/coverage
+server/.pytest_cache
+.coverage
+
+# Local
+*.local
+*.local.*
+
+# Database
+*.sqlite3
+*.db
+
+# Cache
+.cache
+.eslintcache
