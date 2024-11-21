@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Enum as SQLEnum
 from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 from datetime import datetime
@@ -15,19 +15,18 @@ class TaskPriority(str, enum.Enum):
     HIGH = "high"
 
 class Task(Base):
-    __tablename__ = "tasks"
-
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    title = Column(String)
-    description = Column(String, nullable=True)
-    status = Column(Enum(TaskStatus), default=TaskStatus.TODO)
-    priority = Column(Enum(TaskPriority), default=TaskPriority.MEDIUM)
-    completed = Column(Boolean, default=False)
+    title = Column(String(255), nullable=False)
+    description = Column(String(1000))
+    status = Column(SQLEnum(TaskStatus), default=TaskStatus.TODO)
+    priority = Column(SQLEnum(TaskPriority), default=TaskPriority.MEDIUM)
     due_date = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
+    
+    # 外键关系
+    user_id = Column(Integer, ForeignKey("user.id"))
+    
     # 关系
     user = relationship("User", back_populates="tasks")
     focus_sessions = relationship("FocusSession", back_populates="task")
